@@ -1,0 +1,94 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>Регистрация</mat-card-title>
+      <mat-card-subtitle><alert></alert></mat-card-subtitle>
+    </mat-card-header>
+    <form  class="example-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <mat-card-content>
+        <table class="example-full-width" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field [ngClass]="'reg-field'" class="example-full-width">
+                <input matInput
+                       type="text"
+                       placeholder="Ваше имя"
+                       formControlName="firstName"
+                       [ngClass]="{'is-invalid': submitted && f.firstName.errors }"
+                >
+              </mat-form-field>
+              <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                <div *ngIf="f.firstName.errors.required">Имя обязательное поле для заполнения</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><mat-form-field class="example-full-width">
+              <input matInput
+                     placeholder="Ваша фамилия"
+                     formControlName="lastName"
+                     type="text"
+                     [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
+              >
+            </mat-form-field>
+              <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                <div *ngIf="f.lastName.errors.required">Фамилия обязательное поле</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><mat-form-field class="example-full-width">
+              <input matInput
+                     placeholder="Логин пользователя"
+                     formControlName="username"
+                     type="text"
+                     [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+              >
+            </mat-form-field>
+              <div *ngIf="f.username.errors" class="invalid-feedback">
+                <div *ngIf="submitted && f.username.errors.required">Логин обязательное поле</div>
+                <div *ngIf="f.username.errors?.unique">Пользователь с данным логином уже зарегистрирован!</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><mat-form-field class="example-full-width">
+              <input matInput
+                     placeholder="Электронная почта"
+                     formControlName="email"
+                     type="text"
+                     [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+              >
+            </mat-form-field>
+              <div *ngIf="f.email.errors" class="invalid-feedback">
+                <div *ngIf="submitted && f.email.errors.required">Почта обязательное поле</div>
+                <div *ngIf="f.email.errors?.unique">Пользователь с данной почтой уже зарегистрирован!</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><mat-form-field class="example-full-width">
+              <input matInput
+                     placeholder="Пароль"
+                     formControlName="password"
+                     type="password"
+                     [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+              >
+            </mat-form-field>
+              <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                <div *ngIf="f.password.errors.required">Пароль обязательное поле</div>
+                <div *ngIf="f.password.errors.minlength">Пароль должен быть в длину как минимум 6 символов</div>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <mat-spinner *ngIf="loading" [diameter]="40"></mat-spinner>
+      </mat-card-content>
+      <mat-card-actions class="login-card-actions">
+        <button mat-raised-button color="primary" [disabled]="loading">Регистрация</button>
+        <button mat-button [routerLink]="['/login']" class="btn btn-link">Отмена</button>
+      </mat-card-actions>
+    </form>
+
+  </mat-card>
+</div>

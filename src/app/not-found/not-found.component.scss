@@ -1,0 +1,18 @@
+.not-found-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 85%;
+  overflow: hidden;
+  flex-direction: column;
+  color: rgba(0,0,0,.3);
+}
+.not-found-wrapper .status {
+  font-size: 202px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.not-found-wrapper .message {
+  font-weight: 400;
+  font-size: 77px;
+}

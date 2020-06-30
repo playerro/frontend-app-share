@@ -1,0 +1,83 @@
+<div class="page-wrapper">
+  <mat-card *ngIf="user" class="user-details">
+    <mat-card-header class="user-details-header">
+      <mat-card-title>{{user.username}}</mat-card-title>
+      <mat-card-subtitle>{{user.status ? user.status : 'Пользователь'}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="user-content">
+      <img mat-card-image
+           class="user-avatar"
+           src="{{ user.avatar? avatarDirectory + user.avatar : defaultAvatar}}"
+           alt="Аватар пользователя">
+      <mat-list>
+        <mat-list-item class="user-details-items">
+          <span class="user-details-item-label">Имя:</span>
+          <span class="user-details-item">{{user.firstName + ' ' + user.lastName}}</span>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item *ngIf="user.gender" class="user-details-items">
+          <span class="user-details-item-label">Пол:</span>
+          <span class="user-details-item">Мужской</span></mat-list-item>
+        <mat-divider *ngIf="user.gender"></mat-divider>
+        <mat-list-item class="user-details-items">
+          <span class="user-details-item-label">Дата активности:</span>
+          <span class="user-details-item">{{user.lastActivity * 1000 | date:'dd.MM.yyyy'}}</span></mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item class="user-details-items">
+          <span class="user-details-item-label">Дата регистрации:</span>
+          <span class="user-details-item">{{user.regDate * 1000 | date:'dd.MM.yyyy'}}</span>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item *ngIf="user.birthday" class="user-details-items">
+          <span class="user-details-item-label">Дата рождения:</span>
+          <span class="user-details-item">{{user.birthday * 1000 | date:'dd.MM.yyyy'}}</span>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+  <div class="user-posts">
+    <div class="user-posts-title">Лента пользователя {{username}}</div>
+    <div class="user-posts-content">
+      <div class="user-posts-actions">
+        <button  *ngIf="selfPage" mat-raised-button color="primary" class="app-upload-button" (click)="openDialog()">Загрузить свое приложение</button>
+        <form *ngIf="selfPage" class="posts-form" [formGroup]="postForm"   (ngSubmit)="onSubmit()">
+          <mat-form-field class="full-width">
+            <mat-label>Поделитесь своими записями...</mat-label>
+            <textarea matInput
+                      cdkTextareaAutosize
+                      #autosize="cdkTextareaAutosize"
+                      cdkAutosizeMinRows="1"
+                      cdkAutosizeMaxRows="5"
+                      placeholder="Напишите пост  "
+                      class="posts-textarea"
+                      formControlName="text"
+                      [ngClass]="{ 'is-invalid': submitted && f.text.errors }"
+            ></textarea>
+            <mat-spinner  matSuffix *ngIf="loading" [diameter]="25"></mat-spinner>
+            <button  *ngIf="!loading" matSuffix  mat-icon-button color="primary" aria-label="Send" class="send-btn">
+              <mat-icon>send</mat-icon>
+            </button>
+          </mat-form-field>
+        </form>
+      </div>
+      <div class="user-posts-feed">
+        <mat-card *ngFor="let post of posts" class="post-card">
+          <mat-card-header class="header">
+            <mat-card-title class="title">{{ post.isApp ? 'Приложение' : 'Запись' }}</mat-card-title>
+            <mat-card-subtitle class="subtitle">{{ post.created * 1000 | date:'dd.MM.yyyy в hh:mm'}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ post.text}}</p>
+            <p *ngIf="post.isApp">
+              <a href="http://{{getAppLink(post.application)}}">
+                {{getAppLink(post.application)}}
+              </a>
+            </p>
+            <img *ngIf="post.image" mat-card-image src="{{post.image}}" alt="{ post.text}}">
+          </mat-card-content>
+        </mat-card>
+        <div *ngIf="(currentPage > 1) || (posts.length < 1)" class="paginator">Постов не найдено</div>
+      </div>
+    </div>
+  </div>
+</div>

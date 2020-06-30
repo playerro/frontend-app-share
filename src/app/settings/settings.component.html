@@ -1,0 +1,106 @@
+<div class="settings-wrapper" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card class="settings-card">
+    <mat-card-header>
+      <mat-card-title>Настройки пользователя {{user.username}}</mat-card-title>
+      <mat-card-subtitle><alert></alert></mat-card-subtitle>
+    </mat-card-header>
+    <form  class="settings-form" [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
+      <mat-card-content>
+        <table class="example-full-width" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field [ngClass]="'settings-field'" class="example-full-width">
+                <input matInput
+                       type="text"
+                       placeholder="Ваше имя"
+                       formControlName="firstName"
+                       [ngClass]="{'is-invalid': submitted && f.firstName.errors }"
+                >
+              </mat-form-field>
+              <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                <div *ngIf="f.firstName.errors.required">Имя обязательное поле для заполнения</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><mat-form-field class="example-full-width">
+              <input matInput
+                     placeholder="Ваша фамилия"
+                     formControlName="lastName"
+                     type="text"
+                     [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
+              >
+            </mat-form-field>
+              <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                <div *ngIf="f.lastName.errors.required">Фамилия обязательное поле</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-form-field>
+                <mat-label>Ваш пол</mat-label>
+                <mat-select
+                  [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
+                  formControlName="gender"
+                >
+                  <mat-option *ngFor="let gender of genders" [value]="gender.value">
+                    {{gender.label}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
+                <div *ngIf="f.gender.errors.required">Пол обязательное поле</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-form-field>
+                <mat-label>Дата рождения</mat-label>
+                <input matInput
+                       [matDatepicker]="dp"
+                       formControlName="birthday"
+                       [ngClass]="{ 'is-invalid': submitted && f.birthday.errors }"
+                >
+                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                <mat-datepicker #dp></mat-datepicker>
+              </mat-form-field>
+              <div *ngIf="submitted && f.birthday.errors" class="invalid-feedback">
+
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-form-field  class="example-full-width">
+                <mat-label>Статус</mat-label>
+                <textarea matInput
+                          formControlName="status"
+                          cdkTextareaAutosize
+                          #autosize="cdkTextareaAutosize"
+                          cdkAutosizeMinRows="1"
+                          cdkAutosizeMaxRows="5"
+                          placeholder="Напишите что-нибудь, что увидят другие!"
+                          [ngClass]="{ 'is-invalid': submitted && f.status.errors }"
+
+                ></textarea>
+              </mat-form-field>
+              <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
+
+              </div>
+            </td>
+          </tr>
+        </table>
+        <mat-spinner *ngIf="loading" [diameter]="40"></mat-spinner>
+      </mat-card-content>
+      <mat-card-actions class="settings-card-actions">
+        <button mat-raised-button color="primary" [disabled]="loading" class="edit-btn">Изменить</button>
+        <button mat-button [routerLink]="['/page/'+user.username]" class="btn btn-link">Отмена</button>
+      </mat-card-actions>
+    </form>
+
+    <app-image-upload></app-image-upload>
+
+  </mat-card>
+</div>

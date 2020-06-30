@@ -1,0 +1,41 @@
+.settings-wrapper {
+  padding: 4% 20%;
+}
+.settings-card{
+  max-width: 600px;
+  max-height: 700px;
+  float:left;
+  padding:60px 50px 40px 50px;
+  width:100%;
+  background:#fff;
+  border-radius:10px;
+  transform:scale(1);
+  -webkit-transform:scale(1);
+  -ms-transform:scale(1);
+  z-index:5;
+}
+.settings-card .example-full-width {
+  width: 100%;
+}
+.settings-form {
+  min-width:100%;
+  width:100%;
+  margin-bottom: 25px;
+}
+.settings-wrapper mat-card-header{
+  text-align:center;
+  width:100%;
+  display:block;
+  font-weight:700;
+}
+.settings-wrapper mat-card-header mat-card-title{font-size:28px; padding: 8px 0;}
+.settings-wrapper .mat-card{padding:40px 70px 50px;}
+.settings-wrapper {
+  display: flex;
+}
+.settings-field {
+  line-height: initial;
+}
+.edit-btn {
+  transform: none;
+}

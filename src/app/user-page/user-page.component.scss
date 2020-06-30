@@ -1,0 +1,120 @@
+.page-wrapper {
+  display: flex;
+  //top: 5%;
+  //left: 5%;
+  //transform: translate(-5%, -5%);
+}
+.user-details {
+  width: 20%;
+  margin: 16px;
+  padding: 10px;
+  height:100%;
+}
+.user-details-header {
+  text-align: center;
+}
+.user-posts {
+  display: flex;
+  background: #fff;
+  width: 70%;
+  box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+  transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+  border-radius: 4px;
+  margin: 16px;
+}
+.user-details mat-card-header {
+  justify-content: center;
+}
+.mat-list-item.user-details-items .mat-list-item-content {
+  align-items: flex-end;
+}
+.user-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+}
+.mat-card-image.user-avatar {
+  border-radius: 50%;
+  max-width: 20em;
+  max-height: 20em;
+}
+.user-details .mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+.user-details-item-label {
+  font-weight: bold;
+  margin-right: 7px;
+}
+.user-posts-title {
+  font-size: 20px;
+  font-weight: 500;
+  margin-top: 10px;
+  margin-left: 20px;
+  color: rgba(0,0,0,.54);
+}
+.user-posts {
+  display: flex;
+  flex-direction: column;
+}
+.user-posts-content {
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+}
+.user-posts-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: baseline;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+.app-upload-button {
+  max-height: 40px;
+  margin-right: 25px;
+}
+.posts-textarea {
+  width:90%;
+}
+.posts-form {
+  width: 70%;
+}
+.posts-form .full-width {
+  width: 100%;
+}
+.mat-form-field-appearance-legacy .send-btn {
+  font-size: 24px;
+}
+.user-posts-feed {
+  padding-left: 25px;
+  padding-right: 20px;
+  display: flex;
+  flex-direction: column;
+
+  .post-card {
+    margin-top: 2%;
+    mat-card-subtitle {
+      margin-bottom: 5px;
+    }
+    mat-card-content {
+      margin-right: 16px;
+      margin-left: 16px;
+      img {
+        border-radius: 4px;
+        max-width: 80%;
+        max-height: 80%;
+      }
+    }
+  }
+  .paginator {
+    margin-top: 4%;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    background: #fff;
+    color: rgba(0,0,0,.87);
+  }
+}

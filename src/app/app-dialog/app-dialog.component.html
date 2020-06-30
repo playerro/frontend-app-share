@@ -1,0 +1,93 @@
+<h1 mat-dialog-title>Загрузка приложения</h1>
+<div mat-dialog-content>
+  <p>Заполните форму</p>
+  <form  class="app-form" [formGroup]="appForm">
+
+      <table class="example-full-width" cellspacing="0">
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width">
+              <input matInput
+                     type="text"
+                     placeholder="Название приложения"
+                     formControlName="name"
+                     [ngClass]="{'is-invalid': submitted && f.name.errors }"
+              >
+            </mat-form-field>
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+              <div *ngIf="f.name.errors?.required">Название обязательное поле</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><mat-form-field class="example-full-width">
+            <input matInput
+                   placeholder="Домен приложения"
+                   formControlName="domain"
+                   type="text"
+                   [ngClass]="{ 'is-invalid': submitted && f.domain.errors }"
+            >
+          </mat-form-field>
+            <div *ngIf="f.domain.errors" class="invalid-feedback">
+              <div *ngIf="f.domain.errors?.required">Домен обязательное поле</div>
+              <div *ngIf="f.domain.errors?.unique">Домен должен быть уникальным</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field  class="example-full-width">
+              <mat-label>Комментарий</mat-label>
+              <textarea matInput
+                        formControlName="comment"
+                        cdkTextareaAutosize
+                        #autosize="cdkTextareaAutosize"
+                        cdkAutosizeMinRows="1"
+                        cdkAutosizeMaxRows="5"
+                        placeholder="Кратко опишите приложение"
+                        [ngClass]="{ 'is-invalid': submitted && f.comment.errors }"
+
+              ></textarea>
+            </mat-form-field>
+            <div *ngIf="submitted && f.comment.errors" class="invalid-feedback">
+              <div *ngIf="f.domain.errors?.required">Комментарий обязательное поле</div>
+            </div>
+          </td>
+        </tr>
+        <tr><td>
+          <mat-label id="apptype-radio-group-label">Выберите тип приложения</mat-label>
+          <mat-radio-group
+            aria-labelledby="apptype-radio-group-label"
+            class="apptype-radio-group"
+            formControlName="isStatic"
+          >
+            <mat-radio-button class="apptype-radio-button" *ngFor="let type of types" [value]="type.isStatic">
+              {{type.label}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </td></tr>
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width">
+              <mat-label *ngIf="appForm.value.isStatic; else dockerTemplate;">Ссылка на папку репозитория</mat-label>
+              <ng-template #dockerTemplate>
+                <mat-label>Имя Docker образа</mat-label>
+              </ng-template>
+            <input matInput
+                   formControlName="source"
+                   type="text"
+                   [ngClass]="{ 'is-invalid': submitted && f.source.errors }"
+            >
+          </mat-form-field>
+            <div *ngIf="submitted && f.source.errors" class="invalid-feedback">
+              <div *ngIf="f.source.errors?.required">Источник обязательное поле</div>
+            </div>
+          </td>
+        </tr>
+      </table>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Отмена</button>
+  <button mat-raised-button color="primary" [disabled]="false" (click)="onSubmit()" cdkFocusInitial>Загрузить</button>
+</div>
